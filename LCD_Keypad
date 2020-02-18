@@ -1,0 +1,52 @@
+
+#include <stdint.h>
+#include "TouchScreen.h"
+#include <Arduino.h>
+#include <Adafruit_ILI9341.h>
+#include <Adafruit_GFX.h>
+#define YP A2  
+#define XM A3 
+#define YM 5   
+#define XP 4   
+
+#define TFT_DC  9
+#define TFT_CS 10
+
+#define TS_MINX 80
+#define TS_MINY 120
+#define TS_MAXX 920
+#define TS_MAXY 930
+// For better pressure precision, we need to know the resistance
+// between X+ and X- Use any multimeter to read it
+// For the one we're using, its 300 ohms across the X plate
+TouchScreen ts = TouchScreen(XP, YP, XM, YM, 300);
+Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC);
+
+uint16_t white = tft.color565(255, 255, 255);
+uint16_t Blue = tft.color565(90, 0, 0);
+uint16_t darkBlue = tft.color565(255, 0, 0);
+
+enum StateNames {MENU, SETTINGS, INWORKOUT, ENDWORKOUT};
+StateNames state = MENU;
+
+void setup()
+{
+  tft.begin();
+  tft.setRotation(1);
+  
+}
+
+void loop()
+{
+  tft.drawRect(50,80,30,30,white);
+  tft.drawRect(100,80,30,30,white);
+  tft.drawRect(150,80,30,30,white);
+  tft.drawRect(50,110,30,30,white);
+  tft.drawRect(100,110,30,30,white);
+  tft.drawRect(150,110,30,30,white);
+  tft.drawRect(50,130,30,30,white);
+  tft.drawRect(100,130,30,30,white);
+  tft.drawRect(150,130,30,30,white);
+  tft.drawRect(100,170,30,30,white);
+  
+}
